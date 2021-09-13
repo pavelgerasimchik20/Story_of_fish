@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">FisHistory</string>
+    <string name="fish_name">Fish name</string>
+    <string name="dataform_screen_name">Enter fish details</string>
+    <string name="fish_weight">Weight of fish (kg)</string>
+    <string name="location">Location</string>
+    <string name="add_fish_button">Add the Fish</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_name_description">by clicking, you can sort alphabetically</string>
+    <string name="sort_by_weight">Sort by weight of the fish</string>
+    <string name="sort_by_weight_description">by clicking, you can sort the fish by weight</string>
+    <string name="sort_by_locale">Sort by location</string>
+    <string name="sort_by_locale_description">by clicking, you can sort places alphabetically</string>
+    <string name="switch_name">switch_name</string>
+    <string name="switch_weght">switch_weight</string>
+    <string name="switch_location">switch_location</string>
+    <string name="filter">Filter</string>
+</resources>

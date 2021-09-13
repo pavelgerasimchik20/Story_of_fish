@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/switch_name"
+        android:summary="@string/sort_by_name_description"
+        android:title="@string/sort_by_name" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/switch_weght"
+        android:summary="@string/sort_by_weight_description"
+        android:title="@string/sort_by_weight" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/switch_location"
+        android:summary="@string/sort_by_locale_description"
+        android:title="@string/sort_by_locale" />
+
+
+</PreferenceScreen>
