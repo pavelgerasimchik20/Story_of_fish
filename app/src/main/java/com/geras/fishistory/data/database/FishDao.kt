@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 @androidx.room.Dao
 interface FishDao {
 
-    @Query("SELECT * FROM fish_table ") //ORDER BY fish_name ASC
-    fun getWords(): Flow<List<Fish>>
+    @Query("SELECT * FROM fish_table ")
+    fun getListOfFish(): Flow<List<Fish>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(word: Fish)

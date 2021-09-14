@@ -1,4 +1,4 @@
-package com.geras.fishistory.UI.activities
+package com.geras.fishistory.ui.activities
 
 import android.app.Activity
 import android.content.Context
@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import com.geras.fishistory.R
-import com.geras.fishistory.databinding.ActivityDataformBinding
 import com.geras.fishistory.data.dataclasses.Fish
+import com.geras.fishistory.databinding.ActivityDataformBinding
 
 class DataFormActivity : AppCompatActivity() {
 
@@ -36,7 +36,7 @@ class DataFormActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             if (binding.location.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Please enter3 fishing location", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Please enter fishing location", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
@@ -54,7 +54,7 @@ class DataFormActivity : AppCompatActivity() {
             finish()
         }
         binding.addPhoto.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivity(gallery)
 
         }

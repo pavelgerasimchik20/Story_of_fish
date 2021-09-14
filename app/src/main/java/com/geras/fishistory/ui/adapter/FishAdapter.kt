@@ -1,4 +1,4 @@
-package com.geras.fishistory
+package com.geras.fishistory.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.geras.fishistory.R
 import com.geras.fishistory.data.dataclasses.Fish
+import com.geras.fishistory.ui.ItemTouchHelperAdapter
 
-class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<FishViewHolder>() {
+class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<FishViewHolder>(),
+    ItemTouchHelperAdapter {
 
     var fishList = mutableListOf<Fish>()
 
@@ -21,15 +24,19 @@ class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<
     fun sort(key: String) =
         when (key) {
             "name" -> {
-                fishList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.name }))
+                fishList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.name.lowercase() }))
                 notifyDataSetChanged()
             }
-            "weigth" -> {
-                fishList.sortWith(compareByDescending{it.weight})
+            "weight" -> {
+                fishList.sortedWith(compareBy { it.weight })
                 notifyDataSetChanged()
             }
             "location" -> {
-                fishList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.location }))
+                fishList.sortWith(
+                    compareBy(
+                        String.CASE_INSENSITIVE_ORDER,
+                        { it.location.lowercase() })
+                )
                 notifyDataSetChanged()
             }
             else -> fishList.shuffle()
@@ -49,6 +56,12 @@ class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<
     }
 
     override fun getItemCount(): Int = fishList.size
+
+    override fun onItemDismiss(position: Int) {
+        fishList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
 }
 
 class FishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

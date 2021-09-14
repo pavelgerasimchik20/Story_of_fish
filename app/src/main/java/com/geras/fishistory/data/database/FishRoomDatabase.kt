@@ -53,14 +53,7 @@ abstract class FishRoomDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(fishDao: FishDao) {
-            //fishDao.deleteAll()
-
-            var fish = Fish("carp", "Minsk`s sea", 2.2, R.drawable.carp5)
-            fishDao.insert(fish)
-            fish = Fish("caras", "Volma river", 0.5, R.drawable.carp5)
-            fishDao.insert(fish)
+            fishDao.deleteAll()
         }
-
-
     }
 }

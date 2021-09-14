@@ -1,4 +1,4 @@
-package com.geras.fishistory.UI.activities
+package com.geras.fishistory.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,15 @@ import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geras.fishistory.FisHistoryApplication
-import com.geras.fishistory.FishAdapter
 import com.geras.fishistory.databinding.ActivityMainBinding
+import com.geras.fishistory.ui.SimpleItemTouchHelperCallback
+import com.geras.fishistory.ui.adapter.FishAdapter
 import com.geras.fishistory.viewmodel.FishViewModel
 import com.geras.fishistory.viewmodel.FishViewModelFactory
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,12 +46,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainRecycler.adapter = adapter
 
+        val callback: ItemTouchHelper.Callback = SimpleItemTouchHelperCallback(adapter)
+        val touchHelper = ItemTouchHelper(callback)
+        touchHelper.attachToRecyclerView(binding.mainRecycler)
+
         binding.fab.setOnClickListener {
             launcher.launch(Unit)
         }
 
         fishViewModel.allFish.observe(this@MainActivity) { fish ->
-              adapter.replaceFishes(fish)
+            adapter.replaceFishes(fish)
         }
 
         binding.filter.setOnClickListener {

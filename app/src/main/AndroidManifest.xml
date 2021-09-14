@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FisHistory">
         <activity
-            android:name="com.geras.fishistory.UI.activities.MainActivity"
+            android:name="com.geras.fishistory.ui.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.geras.fishistory.UI.activities.DataFormActivity"
+        <activity android:name="com.geras.fishistory.ui.activities.DataFormActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.geras.fishistory.UI.activities.SettingsActivity"
+        <activity android:name="com.geras.fishistory.ui.activities.SettingsActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -1,4 +1,4 @@
-package com.geras.fishistory.UI.activities
+package com.geras.fishistory.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
