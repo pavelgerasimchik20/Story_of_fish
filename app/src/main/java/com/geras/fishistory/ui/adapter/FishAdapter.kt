@@ -24,11 +24,15 @@ class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<
     fun sort(key: String) =
         when (key) {
             "name" -> {
-                fishList.sortWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.name.lowercase() }))
+                fishList.sortWith(
+                    compareBy(
+                        String.CASE_INSENSITIVE_ORDER,
+                        { it.name.lowercase() })
+                )
                 notifyDataSetChanged()
             }
             "weight" -> {
-                fishList.sortedWith(compareBy { it.weight })
+                fishList.sortedBy { it.weight }
                 notifyDataSetChanged()
             }
             "location" -> {

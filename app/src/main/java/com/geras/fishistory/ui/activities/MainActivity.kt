@@ -19,13 +19,7 @@ import com.geras.fishistory.viewmodel.FishViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter {
-        Toast.makeText(
-            this,
-            "you clicked some item of the recycler",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
+    private val adapter = FishAdapter {}
     private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) {
         if (it != null) {
             fishViewModel.addFish(it)
@@ -72,22 +66,12 @@ class MainActivity : AppCompatActivity() {
         val switchLocationValue = prefs.getBoolean("switch_location", false)
         if (switchNameValue) {
             adapter.sort("name")
-        } else {
-            shuffle()
         }
         if (switchWeightValue) {
             adapter.sort("weight")
-        } else {
-            shuffle()
         }
         if (switchLocationValue) {
             adapter.sort("location")
-        } else {
-            shuffle()
         }
-    }
-
-    private fun shuffle() {
-        adapter.fishList.shuffle()
     }
 }

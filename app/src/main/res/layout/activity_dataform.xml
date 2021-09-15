@@ -100,8 +100,8 @@
 
     <ImageView
         android:id="@+id/add_photo"
-        android:layout_width="95dp"
-        android:layout_height="87dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:rotationX="17"
         android:src="@drawable/ic_baseline_add_a_photo_24"
         app:layout_constraintBottom_toTopOf="@+id/add_fish_btn"
