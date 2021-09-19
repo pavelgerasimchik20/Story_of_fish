@@ -5,10 +5,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 
-class SimpleItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
-    ItemTouchHelper.Callback() {
+class SimpleItemTouchHelperCallback constructor(
+    adapter: ItemTouchHelperDismissCallback
+) : ItemTouchHelper.Callback() {
 
-    private val mAdapter: ItemTouchHelperAdapter = adapter
+    interface ItemTouchHelperDismissCallback {
+        fun onItemDismiss(position: Int)
+    }
+
+    private val mAdapter: ItemTouchHelperDismissCallback = adapter
 
     override fun isItemViewSwipeEnabled(): Boolean {
         return true
@@ -30,8 +35,4 @@ class SimpleItemTouchHelperCallback(adapter: ItemTouchHelperAdapter) :
     override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
         mAdapter.onItemDismiss(viewHolder.adapterPosition)
     }
-}
-
-interface ItemTouchHelperAdapter {
-    fun onItemDismiss(position: Int)
 }

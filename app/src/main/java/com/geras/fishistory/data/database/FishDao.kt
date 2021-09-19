@@ -1,5 +1,6 @@
 package com.geras.fishistory.data.database
 
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -14,6 +15,13 @@ interface FishDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(word: Fish)
+
+    @Delete
+    suspend fun delete(fish: Fish)
+
+    @Query("DELETE FROM fish_table WHERE fish_name = :fish")
+    suspend fun deleteByName(fish: String)
+
 
     @Query("DELETE FROM fish_table")
     suspend fun deleteAll()

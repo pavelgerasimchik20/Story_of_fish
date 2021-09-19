@@ -1,4 +1,4 @@
-package com.geras.fishistory.viewmodel
+package com.geras.fishistory.ui.vm
 
 import androidx.lifecycle.*
 import com.geras.fishistory.data.database.FishRepository
@@ -13,6 +13,12 @@ class FishViewModel(private val repository: FishRepository) : ViewModel() {
     fun addFish(fish: Fish) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insert(fish)
+        }
+    }
+
+    fun onItemDismiss(position: Fish) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.delete(position)
         }
     }
 }

@@ -8,18 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geras.fishistory.R
 import com.geras.fishistory.data.dataclasses.Fish
-import com.geras.fishistory.ui.ItemTouchHelperAdapter
+import com.geras.fishistory.ui.SimpleItemTouchHelperCallback
 
-class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<FishViewHolder>(),
-    ItemTouchHelperAdapter {
+class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit , private val onCLickAction: () -> Unit?) : RecyclerView.Adapter<FishViewHolder>(),
+    SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
 
     var fishList = mutableListOf<Fish>()
+
+    override fun onItemDismiss(position: Int) {
+        if (position <=0 && position > fishList.size - 1)
+            onDeleteItem(fishList[position])
+        fishList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     fun replaceFishes(fish: List<Fish>) {
         fishList.clear()
         fishList.addAll(0, fish)
         notifyDataSetChanged()
     }
+
 
     fun sort(key: String) =
         when (key) {
@@ -46,7 +54,6 @@ class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<
             else -> fishList.shuffle()
         }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val item = inflater.inflate(R.layout.recycler_item, parent, false)
@@ -60,12 +67,6 @@ class FishAdapter(private val onCLickAction: () -> Unit) : RecyclerView.Adapter<
     }
 
     override fun getItemCount(): Int = fishList.size
-
-    override fun onItemDismiss(position: Int) {
-        fishList.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
 }
 
 class FishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
