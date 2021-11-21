@@ -14,7 +14,7 @@ interface FishDao {
     fun getListOfFish(): Flow<List<Fish>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(word: Fish)
+    suspend fun insert(fish: Fish)
 
     @Delete
     suspend fun delete(fish: Fish)

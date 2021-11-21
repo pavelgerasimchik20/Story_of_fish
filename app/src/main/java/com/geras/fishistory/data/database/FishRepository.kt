@@ -8,10 +8,12 @@ class FishRepository(private val fishDao: FishDao) {
 
     val allFish: Flow<List<Fish>> = fishDao.getListOfFish()
 
+    @WorkerThread
     suspend fun delete(fish: Fish){
         fishDao.delete(fish)
     }
 
+    @WorkerThread
     suspend fun deleteByName(fish: Fish){
         fishDao.deleteByName(fish.name)
     }

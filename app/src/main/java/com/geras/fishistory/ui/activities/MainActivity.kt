@@ -19,7 +19,7 @@ import com.geras.fishistory.ui.vm.FishViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter(::onDeleteFish) { }
+    private val adapter = FishAdapter(::onDeleteFish) {}
     private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) {
         if (it != null) {
             fishViewModel.addFish(it)
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         FishViewModelFactory((application as FisHistoryApplication).repository)
     }
 
-   /* private val dismissHelperCallback = object : SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
+    /*private val dismissHelperCallback = object : SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
         override fun onItemDismiss(position: Int) {
             fishViewModel.onItemDismiss(position)
             adapter.onItemDismiss(position)
