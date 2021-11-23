@@ -1,4 +1,4 @@
-package com.geras.fishistory.ui.activities
+package com.geras.fishistory.presentation.activities
 
 import android.app.Activity
 import android.content.Context
@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import com.geras.fishistory.R
-import com.geras.fishistory.data.dataclasses.Fish
+import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
 
 class DataFormActivity : AppCompatActivity() {

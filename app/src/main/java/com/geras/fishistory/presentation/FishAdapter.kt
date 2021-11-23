@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geras.fishistory.R
-import com.geras.fishistory.data.dataclasses.Fish
-import com.geras.fishistory.ui.SimpleItemTouchHelperCallback
+import com.geras.fishistory.data.Fish
+import com.geras.fishistory.domain.SimpleItemTouchHelperCallback
 
-class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit , private val onCLickAction: () -> Unit?) : RecyclerView.Adapter<FishViewHolder>(),
+class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit, private val onCLickAction: () -> Unit?) : RecyclerView.Adapter<FishViewHolder>(),
     SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
 
     var fishList = mutableListOf<Fish>()

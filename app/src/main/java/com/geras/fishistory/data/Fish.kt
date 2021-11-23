@@ -1,4 +1,4 @@
-package com.geras.fishistory.data.dataclasses
+package com.geras.fishistory.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,8 +1,8 @@
 package com.geras.fishistory.ui.vm
 
 import androidx.lifecycle.*
-import com.geras.fishistory.data.database.FishRepository
-import com.geras.fishistory.data.dataclasses.Fish
+import com.geras.fishistory.data.FishRepository
+import com.geras.fishistory.data.Fish
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,6 @@
-package com.geras.fishistory.data.database
+package com.geras.fishistory.data
 
 import androidx.annotation.WorkerThread
-import com.geras.fishistory.data.dataclasses.Fish
 import kotlinx.coroutines.flow.Flow
 
 class FishRepository(private val fishDao: FishDao) {
@@ -21,5 +20,10 @@ class FishRepository(private val fishDao: FishDao) {
     @WorkerThread
     suspend fun insert(fish: Fish) {
         fishDao.insert(fish)
+    }
+
+    @WorkerThread
+    suspend fun update(fish: Fish){
+        fishDao.update(fish)
     }
 }

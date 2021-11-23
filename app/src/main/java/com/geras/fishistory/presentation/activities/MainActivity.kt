@@ -1,4 +1,4 @@
-package com.geras.fishistory.ui.activities
+package com.geras.fishistory.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geras.fishistory.FisHistoryApplication
-import com.geras.fishistory.data.dataclasses.Fish
+import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
-import com.geras.fishistory.ui.SimpleItemTouchHelperCallback
+import com.geras.fishistory.domain.SimpleItemTouchHelperCallback
 import com.geras.fishistory.ui.adapter.FishAdapter
 import com.geras.fishistory.ui.vm.FishViewModel
 import com.geras.fishistory.ui.vm.FishViewModelFactory
@@ -30,13 +30,13 @@ class MainActivity : AppCompatActivity() {
         FishViewModelFactory((application as FisHistoryApplication).repository)
     }
 
+
     /*private val dismissHelperCallback = object : SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
         override fun onItemDismiss(position: Int) {
             fishViewModel.onItemDismiss(position)
             adapter.onItemDismiss(position)
         }
     }*/
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             adapter.sort("location")
         }
     }
+
 
     private fun onDeleteFish(fish: Fish) {
         fishViewModel.onItemDismiss(fish)

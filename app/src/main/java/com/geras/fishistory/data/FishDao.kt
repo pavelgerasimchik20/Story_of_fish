@@ -1,10 +1,6 @@
-package com.geras.fishistory.data.database
+package com.geras.fishistory.data
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.geras.fishistory.data.dataclasses.Fish
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @androidx.room.Dao
@@ -25,4 +21,7 @@ interface FishDao {
 
     @Query("DELETE FROM fish_table")
     suspend fun deleteAll()
+
+    @Update
+    suspend fun update(fish: Fish)
 }

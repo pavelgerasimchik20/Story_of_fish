@@ -1,4 +1,4 @@
-package com.geras.fishistory.ui
+package com.geras.fishistory.domain
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

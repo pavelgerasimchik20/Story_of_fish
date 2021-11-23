@@ -1,4 +1,4 @@
-package com.geras.fishistory.settings
+package com.geras.fishistory.presentation.settings
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat

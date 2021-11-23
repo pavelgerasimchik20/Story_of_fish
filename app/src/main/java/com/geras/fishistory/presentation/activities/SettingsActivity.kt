@@ -1,9 +1,9 @@
-package com.geras.fishistory.ui.activities
+package com.geras.fishistory.presentation.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.geras.fishistory.R
-import com.geras.fishistory.settings.SettingsFragment
+import com.geras.fishistory.presentation.settings.SettingsFragment
 
 class SettingsActivity : AppCompatActivity() {
 

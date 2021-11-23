@@ -15,16 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FisHistory">
         <activity
-            android:name=".ui.activities.MainActivity">
+            android:name="com.geras.fishistory.presentation.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.DataFormActivity"
+        <activity android:name="com.geras.fishistory.presentation.activities.DataFormActivity"
             />
-        <activity android:name=".ui.activities.SettingsActivity"
+        <activity android:name="com.geras.fishistory.presentation.activities.SettingsActivity"
             android:screenOrientation="portrait"/>
     </application>
 
