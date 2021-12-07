@@ -1,8 +1,11 @@
-package com.geras.fishistory.domain
+package com.geras.fishistory.presentation
 
+import android.app.Application
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.geras.fishistory.presentation.activities.MainActivity
+import kotlin.coroutines.coroutineContext
 
 
 class SimpleItemTouchHelperCallback constructor(

@@ -1,8 +1,8 @@
 package com.geras.fishistory.ui.vm
 
 import androidx.lifecycle.*
-import com.geras.fishistory.data.FishRepository
 import com.geras.fishistory.data.Fish
+import com.geras.fishistory.data.FishRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -16,9 +16,9 @@ class FishViewModel(private val repository: FishRepository) : ViewModel() {
         }
     }
 
-    fun onItemDismiss(position: Fish) {
+    fun onItemDismiss(fish: Fish) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.delete(position)
+            repository.delete(fish)
         }
     }
 }

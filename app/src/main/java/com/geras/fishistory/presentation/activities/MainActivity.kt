@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.geras.fishistory.FisHistoryApplication
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
-import com.geras.fishistory.domain.SimpleItemTouchHelperCallback
+import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
 import com.geras.fishistory.ui.adapter.FishAdapter
 import com.geras.fishistory.ui.vm.FishViewModel
 import com.geras.fishistory.ui.vm.FishViewModelFactory
@@ -19,7 +19,15 @@ import com.geras.fishistory.ui.vm.FishViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter(::onDeleteFish) {}
+    private val adapter = FishAdapter(::onDeleteFish)/*::showFullScreanWithPhoto()*/
+
+    /*private fun showFullScreanWithPhoto(uri: String) {
+        val fishFragment: Fragment = FishFragment.newInstance(uri)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fishFragment)
+        transaction.commitNowAllowingStateLoss()
+    }*/
+
     private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) {
         if (it != null) {
             fishViewModel.addFish(it)
@@ -29,15 +37,6 @@ class MainActivity : AppCompatActivity() {
     private val fishViewModel: FishViewModel by viewModels {
         FishViewModelFactory((application as FisHistoryApplication).repository)
     }
-
-
-    /*private val dismissHelperCallback = object : SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
-        override fun onItemDismiss(position: Int) {
-            fishViewModel.onItemDismiss(position)
-            adapter.onItemDismiss(position)
-        }
-    }*/
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,16 +59,16 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             launcher.launch(Unit)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
 
         binding.filter.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val switchNameValue = prefs.getBoolean("switch_name", false)
         val switchWeightValue = prefs.getBoolean("switch_weight", false)
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity() {
             adapter.sort("location")
         }
     }
-
 
     private fun onDeleteFish(fish: Fish) {
         fishViewModel.onItemDismiss(fish)

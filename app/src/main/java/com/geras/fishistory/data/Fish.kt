@@ -1,5 +1,8 @@
 package com.geras.fishistory.data
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,5 +1,6 @@
 package com.geras.fishistory.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +9,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
-import com.geras.fishistory.domain.SimpleItemTouchHelperCallback
+import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
 
-class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit, private val onCLickAction: () -> Unit?) : RecyclerView.Adapter<FishViewHolder>(),
+class FishAdapter(
+    private val onDeleteItem: (fish: Fish) -> Unit,
+    /*private val onCLickAction: () -> Unit?,*/
+) : RecyclerView.Adapter<FishViewHolder>(),
     SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
 
     var fishList = mutableListOf<Fish>()
 
     override fun onItemDismiss(position: Int) {
-        if (position <=0 && position > fishList.size - 1)
+        if (position >= 0 && position <= fishList.size - 1)
             onDeleteItem(fishList[position])
         fishList.removeAt(position)
         notifyItemRemoved(position)
@@ -29,6 +33,7 @@ class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit, private val onC
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     fun sort(key: String) =
         when (key) {
             "name" -> {
@@ -57,7 +62,7 @@ class FishAdapter(private val onDeleteItem:(fish: Fish) -> Unit, private val onC
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val item = inflater.inflate(R.layout.recycler_item, parent, false)
-        item.setOnClickListener { onCLickAction.invoke() }
+        item.setOnClickListener { /*onCLickAction.invoke()*/ }
         return FishViewHolder(item)
     }
 

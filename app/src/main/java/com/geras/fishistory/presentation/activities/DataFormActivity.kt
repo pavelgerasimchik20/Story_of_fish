@@ -3,6 +3,7 @@ package com.geras.fishistory.presentation.activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
@@ -11,15 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
+import java.io.File
+
+
+private const val REQUEST_CODE_PHOTO = 1
 
 class DataFormActivity : AppCompatActivity() {
 
+    private lateinit var directory: File
     private lateinit var binding: ActivityDataformBinding
+    private lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
+        //createDirectory()
         binding = ActivityDataformBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.backArrow.setOnClickListener {
@@ -42,21 +49,63 @@ class DataFormActivity : AppCompatActivity() {
             }
             val weight = binding.weightOfFish.text.toString().toDoubleOrNull()
                 ?: return@setOnClickListener
+
             val newFish = Fish(
                 binding.nameOfFish.text.toString(),
                 binding.location.text.toString(),
                 weight,
-                R.drawable.carp5       // It`s a temporary solution, until the button doesn`t add a photo of a new fish
+                R.drawable.carp5 // let it be
             )
             val resultData = Intent()
             resultData.putExtra(KEY_FISH, newFish)
             setResult(Activity.RESULT_OK, resultData)
             finish()
         }
-        binding.addPhoto.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivity(gallery)
 
+        binding.addPhoto.setOnClickListener {
+            startActivityForResult(
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE)/*.putExtra(
+                    MediaStore.EXTRA_OUTPUT,
+                    generateFileUri()*/,
+                REQUEST_CODE_PHOTO
+            )
+        }
+    }
+/*
+    private fun generateFileUri(): Uri {
+        val file: File?
+        file = File(
+            directory.getPath() + "/" + "photo_"
+                    + System.currentTimeMillis() + ".jpg"
+        );
+        return Uri.fromFile(file);
+    }
+
+    private fun createDirectory() {
+        directory = File(
+            Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            "fish_folder"
+        )
+        if (!directory.exists()) directory.mkdirs()
+    }*/
+
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_PHOTO && resultCode == RESULT_OK) {
+            if (data != null) {
+                val bundle = data.extras
+                if (bundle != null) {
+                    val obj = data.extras!!["data"]
+                    if (obj is Bitmap) {
+                        binding.previewPhoto.setImageBitmap(obj)
+                    }
+                }
+            }
         }
     }
 

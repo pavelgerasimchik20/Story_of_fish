@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#626E4E"
+    android:background="@color/white"
     tools:context=".presentation.activities.MainActivity">
 
     <ImageView
@@ -57,13 +57,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        style="@style/Platform.MaterialComponents.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="#BFFFFFFF"
-        android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="#5B6CDC"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_margin="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

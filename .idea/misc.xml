@@ -4,9 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/pavel/AndroidStudioProjects/FisHistory/app/src/main/res/xml/settings.xml" value="0.12613981762917933" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/layout/activity_dataform.xml" value="0.259375" />
         <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/layout/activity_main.xml" value="0.22735507246376813" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/layout/full_photo.xml" value="0.2545289855072464" />
         <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/layout/recycler_item.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/pavel/AndroidStudioProjects/Fish_history/app/src/main/res/xml/settings.xml" value="0.21739130434782608" />
       </map>
     </option>
