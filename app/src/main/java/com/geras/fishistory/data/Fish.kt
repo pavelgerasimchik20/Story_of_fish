@@ -1,8 +1,5 @@
 package com.geras.fishistory.data
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -14,7 +11,7 @@ data class Fish(
     var name: String,
     var location: String,
     var weight: Double,
-    var photo: Int
+    var photoPath: Int
 ) : Serializable {
     override fun toString(): String {
         return "$name\n" +

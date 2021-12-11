@@ -12,21 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
-import java.io.File
-
+import java.io.*
 
 private const val REQUEST_CODE_PHOTO = 1
 
 class DataFormActivity : AppCompatActivity() {
 
-    private lateinit var directory: File
     private lateinit var binding: ActivityDataformBinding
-    private lateinit var bitmap: Bitmap
+    private lateinit var path: String
+    private var bitmapFromCamera: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //createDirectory()
         binding = ActivityDataformBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.backArrow.setOnClickListener {
@@ -54,7 +52,7 @@ class DataFormActivity : AppCompatActivity() {
                 binding.nameOfFish.text.toString(),
                 binding.location.text.toString(),
                 weight,
-                R.drawable.carp5 // let it be
+                R.drawable.carp5
             )
             val resultData = Intent()
             resultData.putExtra(KEY_FISH, newFish)
@@ -64,31 +62,11 @@ class DataFormActivity : AppCompatActivity() {
 
         binding.addPhoto.setOnClickListener {
             startActivityForResult(
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE)/*.putExtra(
-                    MediaStore.EXTRA_OUTPUT,
-                    generateFileUri()*/,
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE),
                 REQUEST_CODE_PHOTO
             )
         }
     }
-/*
-    private fun generateFileUri(): Uri {
-        val file: File?
-        file = File(
-            directory.getPath() + "/" + "photo_"
-                    + System.currentTimeMillis() + ".jpg"
-        );
-        return Uri.fromFile(file);
-    }
-
-    private fun createDirectory() {
-        directory = File(
-            Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-            "fish_folder"
-        )
-        if (!directory.exists()) directory.mkdirs()
-    }*/
 
     override fun onActivityResult(
         requestCode: Int,
@@ -102,11 +80,16 @@ class DataFormActivity : AppCompatActivity() {
                 if (bundle != null) {
                     val obj = data.extras!!["data"]
                     if (obj is Bitmap) {
+                        saveToGallery(obj)
                         binding.previewPhoto.setImageBitmap(obj)
                     }
                 }
             }
         }
+    }
+
+    private fun saveToGallery(bitmap: Bitmap) {
+        TODO("Not yet implemented")
     }
 
     companion object {

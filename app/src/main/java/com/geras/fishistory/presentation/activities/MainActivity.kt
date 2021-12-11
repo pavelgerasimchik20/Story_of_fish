@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.geras.fishistory.FisHistoryApplication
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
+import com.geras.fishistory.presentation.FishAdapter
+import com.geras.fishistory.presentation.FishViewModel
+import com.geras.fishistory.presentation.FishViewModelFactory
 import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
-import com.geras.fishistory.ui.adapter.FishAdapter
-import com.geras.fishistory.ui.vm.FishViewModel
-import com.geras.fishistory.ui.vm.FishViewModelFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -59,15 +59,15 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             launcher.launch(Unit)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         binding.filter.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val switchNameValue = prefs.getBoolean("switch_name", false)

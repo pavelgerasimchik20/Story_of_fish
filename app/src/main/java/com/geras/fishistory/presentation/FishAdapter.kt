@@ -1,4 +1,4 @@
-package com.geras.fishistory.ui.adapter
+package com.geras.fishistory.presentation
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,11 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
-import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
 
 class FishAdapter(
     private val onDeleteItem: (fish: Fish) -> Unit,
-    /*private val onCLickAction: () -> Unit?,*/
 ) : RecyclerView.Adapter<FishViewHolder>(),
     SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
 
@@ -62,8 +60,8 @@ class FishAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val item = inflater.inflate(R.layout.recycler_item, parent, false)
-        item.setOnClickListener { /*onCLickAction.invoke()*/ }
-        return FishViewHolder(item)
+        val holder = FishViewHolder(item)
+        return holder
     }
 
     override fun onBindViewHolder(holder: FishViewHolder, position: Int) {
@@ -81,6 +79,10 @@ class FishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(fish: Fish) {
         fishDescription.text = fish.toString()
-        fishPhoto.setImageResource(fish.photo)
+        fishPhoto.setImageResource(fish.photoPath)
+    /*fishPhoto.load(fish.photoPath) {
+            crossfade(true)
+            placeholder(R.drawable.ic_baseline_accessibility_new_24)
+        }*/
     }
 }
