@@ -12,9 +12,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import coil.load
+import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
 import java.io.*
+import java.util.*
 
 class DataFormActivity : AppCompatActivity() {
 
@@ -29,15 +32,28 @@ class DataFormActivity : AppCompatActivity() {
 
         _binding = ActivityDataformBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val inputData = intent?.getSerializableExtra(CURRENT_FISH) as? Fish
+        inputData?.let { fish ->
+            binding.nameOfFish.setText(fish.name)
+            binding.weightOfFish.setText(fish.weight.toString())
+            binding.location.setText(fish.location)
+            fish.photoPath?.let {
+                binding.previewPhoto.load(File(it))
+                path = it
+            }
+        }
+
+        binding.addFishBtn.text = if(inputData == null) {
+            getString(R.string.add_fish_button)
+        } else {
+            getString(R.string.update_fish_button)
+        }
+
         binding.backArrow.setOnClickListener {
             onBackPressed()
         }
         binding.addFishBtn.setOnClickListener {
-
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1
-            )
 
             if (binding.nameOfFish.text.isNullOrEmpty()) {
                 Toast.makeText(this, "Please enter name of your fish", Toast.LENGTH_SHORT).show()
@@ -57,10 +73,11 @@ class DataFormActivity : AppCompatActivity() {
                 ?: return@setOnClickListener
 
             val newFish = Fish(
-                binding.nameOfFish.text.toString(),
-                binding.location.text.toString(),
-                weight,
-                path
+                id = inputData?.id ?: UUID.randomUUID().toString(),
+                name = binding.nameOfFish.text.toString(),
+                location = binding.location.text.toString(),
+                weight = weight,
+                photoPath = path
             )
             val resultData = Intent()
             resultData.putExtra(KEY_FISH, newFish)
@@ -70,7 +87,11 @@ class DataFormActivity : AppCompatActivity() {
         }
 
         binding.addPhoto.setOnClickListener {
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.CAMERA
+                ) != PERMISSION_GRANTED
+            ) {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.CAMERA), REQUEST_CODE_CAMERA_PERMISSION
@@ -91,7 +112,7 @@ class DataFormActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION && grantResults[0] == PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION && grantResults[0] == PERMISSION_GRANTED) {
             startActivityForResult(
                 Intent(MediaStore.ACTION_IMAGE_CAPTURE),
                 REQUEST_CODE_PHOTO
@@ -118,7 +139,7 @@ class DataFormActivity : AppCompatActivity() {
                     val obj = data.extras!!["data"]
                     if (obj is Bitmap) {
                         bitmap = obj
-                        saveToGallery(bitmap!!)
+                        saveToLocalStorage(bitmap!!)
                         binding.previewPhoto.setImageBitmap(bitmap)
                     }
                 }
@@ -126,7 +147,7 @@ class DataFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveToGallery(bitmap: Bitmap) {
+    private fun saveToLocalStorage(bitmap: Bitmap) {
 
         var outputStream: FileOutputStream? = null
         val dir = File(getExternalFilesDir(null), "/Pics")
@@ -148,6 +169,7 @@ class DataFormActivity : AppCompatActivity() {
             outputStream?.flush()
             outputStream?.close()
         }
+        path?.let { File(it).delete() }
         path = outFile.path
     }
 
@@ -156,11 +178,14 @@ class DataFormActivity : AppCompatActivity() {
         private const val REQUEST_CODE_PHOTO = 1
         private const val REQUEST_CODE_CAMERA_PERMISSION = 2
         private const val KEY_FISH = "Key fish"
+        private const val CURRENT_FISH = "CURRENT_FISH"
 
-        fun getCreateContract(): ActivityResultContract<Unit, Fish?> =
-            object : ActivityResultContract<Unit, Fish?>() {
-                override fun createIntent(context: Context, input: Unit?): Intent {
-                    return Intent(context, DataFormActivity::class.java)
+        fun getCreateContract(): ActivityResultContract<Fish?, Fish?> =
+            object : ActivityResultContract<Fish?, Fish?>() {
+                override fun createIntent(context: Context, input: Fish?): Intent {
+                    val intent = Intent(context, DataFormActivity::class.java)
+                    input?.let { intent.putExtra(CURRENT_FISH, it) }
+                    return intent
                 }
 
                 override fun parseResult(resultCode: Int, intent: Intent?): Fish? {

@@ -21,9 +21,4 @@ class FishRepository(private val fishDao: FishDao) {
     suspend fun insert(fish: Fish) {
         fishDao.insert(fish)
     }
-
-    @WorkerThread
-    suspend fun update(fish: Fish) {
-        fishDao.update(fish)
-    }
 }

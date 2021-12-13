@@ -4,7 +4,8 @@
     <string name="dataform_screen_name">Enter fish details</string>
     <string name="fish_weight">Weight of fish (kg)</string>
     <string name="location">Location</string>
-    <string name="add_fish_button">Add the Fish</string>
+    <string name="add_fish_button">Add Fish</string>
+    <string name="update_fish_button">Update Fish</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_name_description">by clicking, you can sort alphabetically</string>
     <string name="sort_by_weight">Sort by weight of the fish</string>

@@ -18,8 +18,8 @@ class FullScreenActivity : AppCompatActivity() {
         _binding = ActivityFullScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val path = intent?.getStringExtra("FISH_PATH") ?: ""
-        val photoFile = path.let { File(it) }
+        val path = intent?.getStringExtra("FISH_PATH")
+        val photoFile = path?.let { File(it) }
         binding.ivFullScreen.load(photoFile) {
             error(R.drawable.ic_baseline_arrow_back_24)
             placeholder(R.drawable.river)

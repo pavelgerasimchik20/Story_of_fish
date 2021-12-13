@@ -15,13 +15,10 @@ interface FishDao {
     @Delete
     suspend fun delete(fish: Fish)
 
-    @Query("DELETE FROM fish_table WHERE fish_name = :fish")
+    @Query("DELETE FROM fish_table WHERE name = :fish")
     suspend fun deleteByName(fish: String)
 
 
     @Query("DELETE FROM fish_table")
     suspend fun deleteAll()
-
-    @Update
-    suspend fun update(fish: Fish)
 }

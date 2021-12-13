@@ -10,7 +10,7 @@ class FishViewModel(private val repository: FishRepository) : ViewModel() {
 
     val allFish: LiveData<List<Fish>> = repository.allFish.asLiveData()
 
-    fun addFish(fish: Fish) {
+    fun addOrUpdateFish(fish: Fish) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insert(fish)
         }

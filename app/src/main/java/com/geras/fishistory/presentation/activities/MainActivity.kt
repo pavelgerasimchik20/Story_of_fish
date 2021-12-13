@@ -17,13 +17,12 @@ import com.geras.fishistory.presentation.vm.FishViewModelFactory
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter(::onDeleteFish, ::onClickAction)
+    private val adapter = FishAdapter(::onDeleteFish, ::onPictureClickAction,::onDescriptionClickAction)
 
-    private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) {
-        if (it != null) {
-            fishViewModel.addFish(it)
+    private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) { fish ->
+        if (fish != null) {
+            fishViewModel.addOrUpdateFish(fish)
         }
     }
 
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.fab.setOnClickListener {
-            launcher.launch(Unit)
+            launcher.launch(null)
         }
 
         binding.filter.setOnClickListener {
@@ -76,9 +75,13 @@ class MainActivity : AppCompatActivity() {
         fishViewModel.onItemDismiss(fish)
     }
 
-    private fun onClickAction(fish: Fish) {
+    private fun onPictureClickAction(fish: Fish) {
         val intent = Intent(this, FullScreenActivity::class.java)
         intent.putExtra("FISH_PATH", fish.photoPath)
         startActivity(intent)
+    }
+
+    private fun onDescriptionClickAction(fish: Fish) {
+        launcher.launch(fish)
     }
 }

@@ -14,7 +14,8 @@ import java.io.File
 
 class FishAdapter(
     private val onDeleteItem: (fish: Fish) -> Unit,
-    private val onClickAction: (fish: Fish) -> Unit
+    private val onPictureClickAction: (fish: Fish) -> Unit,
+    private val onDescriptionClickAction: (fish: Fish) -> Unit
 ) : RecyclerView.Adapter<FishViewHolder>(),
     SimpleItemTouchHelperCallback.ItemTouchHelperDismissCallback {
 
@@ -63,7 +64,7 @@ class FishAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val item = inflater.inflate(R.layout.recycler_item, parent, false)
-        val holder = FishViewHolder(item, onClickAction)
+        val holder = FishViewHolder(item, onPictureClickAction, onDescriptionClickAction)
         return holder
     }
 
@@ -75,7 +76,10 @@ class FishAdapter(
     override fun getItemCount(): Int = fishList.size
 }
 
-class FishViewHolder(itemView: View, private val onClickAction: (fish: Fish) -> Unit) :
+class FishViewHolder(itemView: View,
+                     private val onPictureClickAction: (fish: Fish) -> Unit,
+                     private val onDescriptionClickAction: (fish: Fish) -> Unit
+) :
     RecyclerView.ViewHolder(itemView) {
 
     private val fishPhoto: ImageView = itemView.findViewById(R.id.iv_item_of_list)
@@ -88,11 +92,13 @@ class FishViewHolder(itemView: View, private val onClickAction: (fish: Fish) -> 
         fishPhoto.load(photoFile) {
             placeholder(R.drawable.ic_baseline_accessibility_new_24)
         }
+
         fishPhoto.setOnClickListener {
-            onClickAction.invoke(fish)
+            onPictureClickAction.invoke(fish)
         }
-        /*fishDescription.setOnClickListener {
-            onClickAction.invoke(fish)
-        }*/
+
+        fishDescription.setOnClickListener {
+            onDescriptionClickAction.invoke(fish)
+        }
     }
 }

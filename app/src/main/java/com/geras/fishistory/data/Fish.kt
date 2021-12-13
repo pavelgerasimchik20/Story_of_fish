@@ -1,13 +1,14 @@
 package com.geras.fishistory.data
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.*
 
 @Entity(tableName = "fish_table")
 data class Fish(
-    @PrimaryKey @ColumnInfo(name = "fish_name")
+    @PrimaryKey
+    var id: String,
     var name: String,
     var location: String,
     var weight: Double,
