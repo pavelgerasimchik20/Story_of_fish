@@ -64,10 +64,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val switchNameValue = prefs.getBoolean("switch_name", false)
@@ -83,6 +79,7 @@ class MainActivity : AppCompatActivity() {
             adapter.sort("location")
         }
     }
+
 
     private fun onDeleteFish(fish: Fish) {
         fishViewModel.onItemDismiss(fish)

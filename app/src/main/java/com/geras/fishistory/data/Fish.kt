@@ -11,7 +11,7 @@ data class Fish(
     var name: String,
     var location: String,
     var weight: Double,
-    var photoPath: Int
+    var photoPath: String?
 ) : Serializable {
     override fun toString(): String {
         return "$name\n" +

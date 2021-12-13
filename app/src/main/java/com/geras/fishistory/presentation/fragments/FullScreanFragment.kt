@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import coil.load
 import com.geras.fishistory.databinding.FullPhotoBinding
 
-class FishFragment : Fragment() {
+class FullScreanFragment : Fragment() {
 
     private var _binding: FullPhotoBinding? = null
     private val binding get() = _binding!!
@@ -33,8 +33,8 @@ class FishFragment : Fragment() {
         private const val URI = "URI"
 
         @JvmStatic
-        fun newInstance(uri: String): FishFragment {
-            val fragment = FishFragment()
+        fun newInstance(uri: String): FullScreanFragment {
+            val fragment = FullScreanFragment()
             val args = Bundle()
             args.putString(URI, uri)
             fragment.arguments = args

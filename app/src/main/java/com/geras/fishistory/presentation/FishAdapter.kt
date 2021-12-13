@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
+import java.io.File
 
 class FishAdapter(
     private val onDeleteItem: (fish: Fish) -> Unit,
@@ -74,15 +76,19 @@ class FishAdapter(
 
 class FishViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val fishPhoto: ImageView = itemView.findViewById(R.id.image_view)
-    val fishDescription: TextView = itemView.findViewById(R.id.text_view)
+    private val fishPhoto: ImageView = itemView.findViewById(R.id.iv_item_of_list)
+    private val fishDescription: TextView = itemView.findViewById(R.id.tv_item_of_list)
 
     fun bind(fish: Fish) {
         fishDescription.text = fish.toString()
-        fishPhoto.setImageResource(fish.photoPath)
-    /*fishPhoto.load(fish.photoPath) {
-            crossfade(true)
+
+        val photoFile = fish.photoPath?.let { File(it) }
+        fishPhoto.load(photoFile) {
             placeholder(R.drawable.ic_baseline_accessibility_new_24)
-        }*/
+        }
+
+        fishPhoto.setOnClickListener {
+
+        }
     }
 }
