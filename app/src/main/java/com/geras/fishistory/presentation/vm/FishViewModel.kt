@@ -1,4 +1,4 @@
-package com.geras.fishistory.presentation
+package com.geras.fishistory.presentation.vm
 
 import androidx.lifecycle.*
 import com.geras.fishistory.data.Fish

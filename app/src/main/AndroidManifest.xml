@@ -35,6 +35,9 @@
         <activity
             android:name="com.geras.fishistory.presentation.activities.SettingsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.geras.fishistory.presentation.activities.FullScreenActivity"
+            />
     </application>
 
 </manifest>

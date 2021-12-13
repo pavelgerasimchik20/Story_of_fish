@@ -11,22 +11,15 @@ import com.geras.fishistory.FisHistoryApplication
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
 import com.geras.fishistory.presentation.FishAdapter
-import com.geras.fishistory.presentation.FishViewModel
-import com.geras.fishistory.presentation.FishViewModelFactory
 import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
+import com.geras.fishistory.presentation.vm.FishViewModel
+import com.geras.fishistory.presentation.vm.FishViewModelFactory
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter(::onDeleteFish)/*::showFullScreanWithPhoto()*/
-
-    /*private fun showFullScreanWithPhoto(uri: String) {
-        val fishFragment: Fragment = FishFragment.newInstance(uri)
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fishFragment)
-        transaction.commitNowAllowingStateLoss()
-    }*/
+    private val adapter = FishAdapter(::onDeleteFish, ::onClickAction)
 
     private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) {
         if (it != null) {
@@ -45,9 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.mainRecycler.layoutManager = LinearLayoutManager(this)
-
         binding.mainRecycler.adapter = adapter
-
         val callback: ItemTouchHelper.Callback = SimpleItemTouchHelperCallback(adapter)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(binding.mainRecycler)
@@ -83,5 +74,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDeleteFish(fish: Fish) {
         fishViewModel.onItemDismiss(fish)
+    }
+
+    private fun onClickAction(fish: Fish) {
+        val intent = Intent(this, FullScreenActivity::class.java)
+        intent.putExtra("FISH_PATH", fish.photoPath)
+        startActivity(intent)
     }
 }

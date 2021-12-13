@@ -148,12 +148,10 @@ class DataFormActivity : AppCompatActivity() {
             outputStream?.flush()
             outputStream?.close()
         }
-
         path = outFile.path
     }
 
     companion object {
-
 
         private const val REQUEST_CODE_PHOTO = 1
         private const val REQUEST_CODE_CAMERA_PERMISSION = 2
