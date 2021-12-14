@@ -8,9 +8,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @Database(entities = [Fish::class], version = 1)
-abstract class FishRoomDatabase /*@Inject constructor()*/: RoomDatabase() {
+abstract class FishRoomDatabase: RoomDatabase() {
     abstract fun fishDao(): FishDao
 
     companion object {

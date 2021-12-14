@@ -1,11 +1,8 @@
 package com.geras.fishistory
 
 import android.app.Application
-import com.geras.fishistory.data.FishDao
-import com.geras.fishistory.data.FishRoomDatabase
 import com.geras.fishistory.data.FishRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import com.geras.fishistory.data.FishRoomDatabase
 
 class FisHistoryApplication : Application() {
 

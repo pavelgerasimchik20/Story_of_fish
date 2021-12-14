@@ -24,6 +24,9 @@ class FullScreenActivity : AppCompatActivity() {
             error(R.drawable.ic_baseline_arrow_back_24)
             placeholder(R.drawable.river)
         }
+        binding.share.setOnClickListener {
+
+        }
     }
 
     override fun onDestroy() {
