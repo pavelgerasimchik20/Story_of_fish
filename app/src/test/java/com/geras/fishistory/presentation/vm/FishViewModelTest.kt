@@ -1,32 +1,37 @@
 package com.geras.fishistory.presentation.vm
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.data.FishRepository
-import com.nhaarman.mockitokotlin2.*
-import org.junit.Assert
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class FishViewModelTest {
 
-    val fish = Fish("id","name","location",1.0,"photoPath")
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+    private lateinit var repository: FishRepository
+    private lateinit var viewModel: FishViewModel
+    private lateinit var fish: Fish
+    private lateinit var observer: Observer<List<Fish>>
 
-    @Test
-    suspend fun addOrUpdateFish() {
-        val repo = mock<FishRepository>()
-        val viewModel = FishViewModel(repo)
-        viewModel.addOrUpdateFish(fish)
-        /*verify(repo).insert(fish)*/
-        verify(repo, times(1)).insert(any())
+    @Before
+    fun setup(){
+        fish = mock()
+        repository = mock()
+        viewModel = FishViewModel(repository)
+        observer = mock()
+        viewModel.allFish.observeForever(observer)
     }
 
     @Test
-    suspend fun getDataWhenRepositoryInsert() {
-        val repo = mock<FishRepository>()
-        val viewModel = FishViewModel(repo)
-
-        whenever(repo.insert(any())).thenReturn(null)
-
-        val result = viewModel.addOrUpdateFish(fish)
-        Assert.assertEquals(null, result)
+    fun when_launch_addOrUpdate_should_show_onChanged(){
+        viewModel.addOrUpdateFish(fish)
+        verify(observer).onChanged(any())
     }
 }
