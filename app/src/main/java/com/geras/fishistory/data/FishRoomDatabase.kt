@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @Database(entities = [Fish::class], version = 1)
-abstract class FishRoomDatabase: RoomDatabase() {
+abstract class FishRoomDatabase : RoomDatabase() {
     abstract fun fishDao(): FishDao
 
     companion object {

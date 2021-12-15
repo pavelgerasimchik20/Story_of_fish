@@ -5,8 +5,9 @@ import com.geras.fishistory.data.Fish
 import com.geras.fishistory.data.FishRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FishViewModel(private val repository: FishRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val repository: FishRepository) : ViewModel() {
 
     val allFish: LiveData<List<Fish>> = repository.allFish.asLiveData()
 
@@ -21,15 +22,4 @@ class FishViewModel(private val repository: FishRepository) : ViewModel() {
             repository.delete(fish)
         }
     }
-}
-
-class FishViewModelFactory(private val repository: FishRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FishViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return FishViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-
 }

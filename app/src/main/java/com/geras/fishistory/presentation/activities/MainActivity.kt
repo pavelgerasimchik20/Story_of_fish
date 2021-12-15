@@ -7,27 +7,27 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geras.fishistory.FisHistoryApplication
+import com.geras.fishistory.FishHistoryApplication
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
 import com.geras.fishistory.presentation.FishAdapter
 import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
-import com.geras.fishistory.presentation.vm.FishViewModel
-import com.geras.fishistory.presentation.vm.FishViewModelFactory
+import com.geras.fishistory.presentation.vm.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter = FishAdapter(::onDeleteFish, ::onPictureClickAction,::onDescriptionClickAction)
+    private val adapter =
+        FishAdapter(::onDeleteFish, ::onPictureClickAction, ::onDescriptionClickAction)
 
     private val launcher = registerForActivityResult(DataFormActivity.getCreateContract()) { fish ->
         if (fish != null) {
-            fishViewModel.addOrUpdateFish(fish)
+            mainViewModel.addOrUpdateFish(fish)
         }
     }
 
-    private val fishViewModel: FishViewModel by viewModels {
-        FishViewModelFactory((application as FisHistoryApplication).repository)
+    private val mainViewModel: MainViewModel by viewModels {
+        (application as FishHistoryApplication).appComponent.getViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(binding.mainRecycler)
 
-        fishViewModel.allFish.observe(this@MainActivity) { fish ->
+        mainViewModel.allFish.observe(this@MainActivity) { fish ->
             adapter.replaceFishes(fish)
         }
 
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun onDeleteFish(fish: Fish) {
-        fishViewModel.onItemDismiss(fish)
+        mainViewModel.onItemDismiss(fish)
     }
 
     private fun onPictureClickAction(fish: Fish) {

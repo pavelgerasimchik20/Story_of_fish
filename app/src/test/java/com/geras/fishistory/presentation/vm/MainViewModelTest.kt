@@ -11,12 +11,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class FishViewModelTest {
+class MainViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
     private lateinit var repository: FishRepository
-    private lateinit var viewModel: FishViewModel
+    private lateinit var viewModel: MainViewModel
     private lateinit var fish: Fish
     private lateinit var observer: Observer<List<Fish>>
 
@@ -24,7 +24,7 @@ class FishViewModelTest {
     fun setup(){
         fish = mock()
         repository = mock()
-        viewModel = FishViewModel(repository)
+        viewModel = MainViewModel(repository)
         observer = mock()
         viewModel.allFish.observeForever(observer)
     }
