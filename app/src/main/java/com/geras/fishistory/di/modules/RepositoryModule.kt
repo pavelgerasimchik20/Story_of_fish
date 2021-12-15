@@ -1,7 +1,7 @@
 package com.geras.fishistory.di.modules
 
 import com.geras.fishistory.data.FishRepository
-import com.geras.fishistory.data.FishRepositoryImpl
+import com.geras.fishistory.data.MainRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -9,5 +9,5 @@ import dagger.Module
 interface RepositoryModule {
 
     @Binds
-    fun bindFishRepository(repository: FishRepositoryImpl): FishRepository
+    fun bindFishRepository(repository: MainRepositoryImpl): FishRepository
 }

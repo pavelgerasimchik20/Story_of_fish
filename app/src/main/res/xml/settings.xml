@@ -19,5 +19,9 @@
         android:summary="@string/sort_by_locale_description"
         android:title="@string/sort_by_locale" />
 
+  <!--  <SwitchPreference
+        android:defaultValue="true"
+        android:key="dark_theme"
+        android:title="Dark theme" />-->
 
 </PreferenceScreen>

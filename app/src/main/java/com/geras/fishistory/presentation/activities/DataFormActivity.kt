@@ -10,12 +10,15 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import coil.load
+import com.geras.fishistory.FishHistoryApplication
 import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
+import com.geras.fishistory.presentation.vm.DataFormViewModel
 import java.io.*
 import java.util.*
 
@@ -24,8 +27,12 @@ class DataFormActivity : AppCompatActivity() {
     private var _binding: ActivityDataformBinding? = null
     private val binding: ActivityDataformBinding
         get() = _binding!!
-    private var path: String? = null
     private var bitmap: Bitmap? = null
+    private var path: String? = null
+
+    private val viewModel: DataFormViewModel by viewModels {
+        (application as FishHistoryApplication).appComponent.getViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

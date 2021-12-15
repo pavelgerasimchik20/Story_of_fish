@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         val callback: ItemTouchHelper.Callback = SimpleItemTouchHelperCallback(adapter)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(binding.mainRecycler)
+        sortList()
 
         mainViewModel.allFish.observe(this@MainActivity) { fish ->
             adapter.replaceFishes(fish)
@@ -55,25 +56,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val switchNameValue = prefs.getBoolean("switch_name", false)
-        val switchWeightValue = prefs.getBoolean("switch_weight", false)
-        val switchLocationValue = prefs.getBoolean("switch_location", false)
-        if (switchNameValue) {
-            adapter.sort("name")
-        }
-        if (switchWeightValue) {
-            adapter.sort("weight")
-        }
-        if (switchLocationValue) {
-            adapter.sort("location")
-        }
     }
-
 
     private fun onDeleteFish(fish: Fish) {
         mainViewModel.onItemDismiss(fish)
     }
+
 
     private fun onPictureClickAction(fish: Fish) {
         val intent = Intent(this, FullScreenActivity::class.java)
@@ -83,5 +71,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDescriptionClickAction(fish: Fish) {
         launcher.launch(fish)
+    }
+
+    private fun sortList() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val switchNameValue = prefs.getBoolean("switch_name", false)
+        val switchWeightValue = prefs.getBoolean("switch_weight", false)
+        val switchLocationValue = prefs.getBoolean("switch_location", false)
+        /*val checkDarkTheme = prefs.getBoolean("dark_theme", true)*/
+        if (switchNameValue) {
+            adapter.sort("name")
+        }
+        if (switchWeightValue) {
+            adapter.sort("weight")
+        }
+        if (switchLocationValue) {
+            adapter.sort("location")
+        }
     }
 }
