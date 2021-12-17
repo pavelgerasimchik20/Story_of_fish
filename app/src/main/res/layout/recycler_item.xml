@@ -23,6 +23,7 @@
         android:background="#40D2DBDF"
         android:gravity="center"
         android:maxLines="3"
+        android:textColor="?attr/textFillColor"
         android:textSize="@dimen/text_size_rec_item"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"

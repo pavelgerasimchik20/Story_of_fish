@@ -14,5 +14,4 @@ class DataFormViewModel @Inject constructor(private val repository: FishReposito
             repository.getPath(fish)
         }
     }*/
-
 }

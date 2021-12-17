@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geras.fishistory.FishHistoryApplication
+import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityMainBinding
 import com.geras.fishistory.presentation.FishAdapter
@@ -31,10 +33,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.switchTheme.isChecked =
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+
+        binding.switchTheme.setOnCheckedChangeListener {
+            _,_ -> mainViewModel.changeTheme(binding.switchTheme.isChecked)
+        }
 
         binding.mainRecycler.layoutManager = LinearLayoutManager(this)
         binding.mainRecycler.adapter = adapter
@@ -55,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun onDeleteFish(fish: Fish) {
@@ -73,12 +85,15 @@ class MainActivity : AppCompatActivity() {
         launcher.launch(fish)
     }
 
+    private fun reset() {
+
+    }
+
     private fun sortList() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val switchNameValue = prefs.getBoolean("switch_name", false)
         val switchWeightValue = prefs.getBoolean("switch_weight", false)
         val switchLocationValue = prefs.getBoolean("switch_location", false)
-        /*val checkDarkTheme = prefs.getBoolean("dark_theme", true)*/
         if (switchNameValue) {
             adapter.sort("name")
         }
