@@ -14,8 +14,8 @@ class SettingsActivity : AppCompatActivity() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.settings_container, SettingsFragment())
-            .commit()
-        }
+            .commitNow()
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

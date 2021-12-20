@@ -1,6 +1,5 @@
 package com.geras.fishistory.presentation
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +33,6 @@ class FishAdapter(
         notifyDataSetChanged()
     }
 
-
-    @SuppressLint("NotifyDataSetChanged")
     fun sort(key: String) =
         when (key) {
             "name" -> {
@@ -47,7 +44,7 @@ class FishAdapter(
                 notifyDataSetChanged()
             }
             "weight" -> {
-                fishList.sortedBy { it.weight }
+                fishList.sortBy { it.weight }
                 notifyDataSetChanged()
             }
             "location" -> {
@@ -76,9 +73,10 @@ class FishAdapter(
     override fun getItemCount(): Int = fishList.size
 }
 
-class FishViewHolder(itemView: View,
-                     private val onPictureClickAction: (fish: Fish) -> Unit,
-                     private val onDescriptionClickAction: (fish: Fish) -> Unit
+class FishViewHolder(
+    itemView: View,
+    private val onPictureClickAction: (fish: Fish) -> Unit,
+    private val onDescriptionClickAction: (fish: Fish) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 

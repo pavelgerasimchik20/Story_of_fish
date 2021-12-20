@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.data.FishRoomDatabase
 import com.geras.fishistory.data.MainRepositoryImpl
+import com.geras.fishistory.presentation.settings.ThemeManager
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
 import org.junit.Before
@@ -30,7 +31,8 @@ class MainViewModelTest : TestCase() {
         val db = Room.inMemoryDatabaseBuilder(context, FishRoomDatabase::class.java)
             .allowMainThreadQueries().build()
         val repo = MainRepositoryImpl(db.fishDao())
-        viewModel = MainViewModel(repo)
+        val manager = ThemeManager(context)
+        viewModel = MainViewModel(repo,manager)
     }
 
     @Test

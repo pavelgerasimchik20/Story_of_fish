@@ -19,6 +19,7 @@ import com.geras.fishistory.R
 import com.geras.fishistory.data.Fish
 import com.geras.fishistory.databinding.ActivityDataformBinding
 import com.geras.fishistory.presentation.vm.DataFormViewModel
+import com.geras.fishistory.presentation.vm.MainViewModel
 import java.io.*
 import java.util.*
 
@@ -29,10 +30,6 @@ class DataFormActivity : AppCompatActivity() {
         get() = _binding!!
     private var bitmap: Bitmap? = null
     private var path: String? = null
-
-    private val viewModel: DataFormViewModel by viewModels {
-        (application as FishHistoryApplication).appComponent.getViewModelFactory()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,18 +60,13 @@ class DataFormActivity : AppCompatActivity() {
         binding.addFishBtn.setOnClickListener {
 
             if (binding.nameOfFish.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Please enter name of your fish", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+               makeToast("Please enter name of your fish")
             }
             if (binding.weightOfFish.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Please enter weight of your fish", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
+                makeToast("Please enter weight of your fish")
             }
             if (binding.location.text.isNullOrEmpty()) {
-                Toast.makeText(this, "Please enter fishing location", Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
+                makeToast("Please enter fishing location")
             }
             val weight = binding.weightOfFish.text.toString().toDoubleOrNull()
                 ?: return@setOnClickListener
@@ -90,7 +82,6 @@ class DataFormActivity : AppCompatActivity() {
             resultData.putExtra(KEY_FISH, newFish)
             setResult(Activity.RESULT_OK, resultData)
             finish()
-
         }
 
         binding.addPhoto.setOnClickListener {
@@ -178,6 +169,10 @@ class DataFormActivity : AppCompatActivity() {
         }
         path?.let { File(it).delete() }
         path = outFile.path
+    }
+    private fun makeToast(string: String){
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+        return
     }
 
     companion object {

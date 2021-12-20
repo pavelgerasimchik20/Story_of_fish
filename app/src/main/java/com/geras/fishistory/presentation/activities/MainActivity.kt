@@ -1,6 +1,7 @@
 package com.geras.fishistory.presentation.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.activity.viewModels
@@ -18,7 +19,11 @@ import com.geras.fishistory.presentation.vm.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var prefs : SharedPreferences
+    private var _binding: ActivityMainBinding? = null
+    private val binding: ActivityMainBinding
+        get() = _binding!!
     private val adapter =
         FishAdapter(::onDeleteFish, ::onPictureClickAction, ::onDescriptionClickAction)
 
@@ -39,14 +44,14 @@ class MainActivity : AppCompatActivity() {
             setTheme(R.style.AppTheme)
         }
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.switchTheme.isChecked =
             AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
 
-        binding.switchTheme.setOnCheckedChangeListener {
-            _,_ -> mainViewModel.changeTheme(binding.switchTheme.isChecked)
+        binding.switchTheme.setOnCheckedChangeListener { _, _ ->
+            mainViewModel.changeTheme(binding.switchTheme.isChecked)
         }
 
         binding.mainRecycler.layoutManager = LinearLayoutManager(this)
@@ -54,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         val callback: ItemTouchHelper.Callback = SimpleItemTouchHelperCallback(adapter)
         val touchHelper = ItemTouchHelper(callback)
         touchHelper.attachToRecyclerView(binding.mainRecycler)
-        sortList()
 
         mainViewModel.allFish.observe(this@MainActivity) { fish ->
             adapter.replaceFishes(fish)
@@ -68,12 +72,31 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
+    override fun onResume() {
+        prefs.getBoolean("switch_name", false).let {
+            if (it) {
+                adapter.sort("name")
+            }
+        }
+        prefs.getBoolean("switch_weight", false).let {
+            if (it) {
+                adapter.sort("weight")
+            }
+        }
+        prefs.getBoolean("switch_location", false).let {
+            if (it) {
+                adapter.sort("location")
+            }
+        }
+        super.onResume()
     }
 
     private fun onDeleteFish(fish: Fish) {
         mainViewModel.onItemDismiss(fish)
     }
-
 
     private fun onPictureClickAction(fish: Fish) {
         val intent = Intent(this, FullScreenActivity::class.java)
@@ -83,25 +106,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun onDescriptionClickAction(fish: Fish) {
         launcher.launch(fish)
-    }
-
-    private fun reset() {
-
-    }
-
-    private fun sortList() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val switchNameValue = prefs.getBoolean("switch_name", false)
-        val switchWeightValue = prefs.getBoolean("switch_weight", false)
-        val switchLocationValue = prefs.getBoolean("switch_location", false)
-        if (switchNameValue) {
-            adapter.sort("name")
-        }
-        if (switchWeightValue) {
-            adapter.sort("weight")
-        }
-        if (switchLocationValue) {
-            adapter.sort("location")
-        }
     }
 }
