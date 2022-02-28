@@ -17,7 +17,6 @@ import com.geras.fishistory.presentation.FishAdapter
 import com.geras.fishistory.presentation.SimpleItemTouchHelperCallback
 import com.geras.fishistory.presentation.vm.MainViewModel
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var prefs : SharedPreferences
@@ -50,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         binding.switchTheme.isChecked =
             AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
 
+        binding.poster?.setBackgroundResource(R.drawable.my_animation)
         binding.switchTheme.setOnCheckedChangeListener { _, _ ->
             mainViewModel.changeTheme(binding.switchTheme.isChecked)
         }
